@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+    <style>
+        *{
+             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    body{
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    div{
+        position: relative;
+        top: 120px;
+        width: 300px;
+        height: 250px;
+        border: 2px solid black;
+        box-shadow: 10px 10px 5px royalblue;
+        border-radius: 50px;
+        color: white;
+        display: grid;
+    }
+    form{
+        position: relative;
+        left: 40px;
+        top: 0px;
+    }
+    input{
+        height: 35px;
+        width: 200px;
+        margin-top: 5px;
+        border-radius: 15px;
+        text-align: center;
+        
+    }
+    button{
+        height: 30px;
+        width: 100px;
+        margin-top: 10px;
+        border-radius: 30px;
+        text-align: center;
+        position: relative;
+        left: 50px;
+    }
+    a{
+        position: relative;
+        left:50px;
+        top: 0px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-weight: bolder;
+        text-decoration: none;
+    }
+    h1{
+        position: relative;
+        left: 65px;
+    }
+</style>
+
+</head>
+<body>
+    <div>
+<h1>Sign in....</h1>
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Enter username" required><br>
+    <input type="password" name="password" placeholder="Enter password" required><br>
+    <button type="submit">Submit</button>
+</form>
+<a href="{% url 'register' %}">don't have an account?</a>
+</div>
+</body>
+</html>

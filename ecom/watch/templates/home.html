@@ -1,0 +1,102 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>HOME PAGE</title>
+    <style>
+        
+        body{
+            background-color: black;
+            color: white;
+            max-width: 100%;
+            width: fit-content;
+            overflow-x:hidden;
+            margin:20px;
+        }
+        header{
+            display:flex;
+            font-size: 20px;
+            justify-content:end;
+            margin-bottom: 100px;
+            align-items: center;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+        header nav a{
+            text-decoration: none;    
+            background: linear-gradient(to bottom,red,rgb(241, 241, 245));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: capitalize;
+        }
+        nav{
+            display: flex;
+            gap: 35px;
+            margin-left: 600px;
+        }
+        
+        .hero{
+            position: relative;
+            left:400px;
+            margin-bottom: 220px;
+        }
+        .hero b{
+            font-size: 70px;
+        }
+        
+        #searchip{
+            margin: 25px;
+            width: 400px;
+            height: 35px;
+            border-radius: 15px;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size:15px;
+        }
+        #searchbtn{
+            display:none;
+            cursor: pointer;
+            margin-left: 200px;
+            height: 30px;
+            border-radius: 15px;
+            width: 90px;
+            background: linear-gradient(240deg,blue,red);
+            font-weight: 200;
+            font-family:Georgia, 'Times New Roman', Times, serif;
+        }
+       
+       
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Ecommerce site</h2>
+        <nav>
+            <a href="{%url 'products' 'men'%}">Men</a>
+            <a href="{%url 'products' 'women'%}">Women</a>
+            <a href="{%url 'products' 'accessories'%}">Accesories</a>
+            <a href="{%url 'products' 'kids'%}">Kids</a>
+        </nav>
+    </header>
+    <div class="hero">
+        <b>Ecommerce site</b><br>
+        <form method="get" action="{%url 'smart'%}">
+        <input type="search" id="searchip" name="q" placeholder="start to search">
+        <button id="searchbtn">Search</button>
+        </form>
+    </div>
+    <script>
+        let ip = document.getElementById("searchip");
+        let bt = document.getElementById("searchbtn");
+
+        ip.addEventListener("input",function(){
+            if(ip.value.trim()!==""){
+                bt.style.display = "block";
+            }else{
+                bt.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Men's Fashion</title>
+    <style>
+	body{
+		margin-top:50px;
+		background-color:grey;
+	}
+	.products{
+		display:grid;
+		grid-template-columns:repeat(3,1fr);
+		gap:70px;
+		margin:40px 40px;
+	}
+   .card{
+	   width:290px;
+	   height:354px;
+	   perspective:1000px;
+	   cursor:pointer;
+   }
+   .content{
+	   width:100%;
+	   height:100%;
+	   position:relative;
+	   transform-style:preserve-3d;
+	   transition:transform .6s ease;
+	   border-radius:6px;
+	   box-shadow:0px 0px 10px 1px #000000ee;
+   }
+   .front, .back{
+	   position:absolute;
+	   width:100%;
+	   height:100%;
+	   background:#151515;
+	   border-radius:6px;
+	   backface-visibility:hidden;
+	   -webkit-backface-visibility:hidden;
+	   overflow:hidden;
+   }
+   .front{
+	   transform:rotateY(0deg);
+   }
+   .back{
+	   transform:rotateY(180deg);
+	   display:flex;
+	   justify-content:center;
+	   align-items:center;
+   }
+   .card.active .content{
+	   transform:rotateY(180deg);
+   }
+   .back::before{
+	   content:"";
+	   position:absolute;
+	   width:150%;
+	   height:200%;
+	   background:linear-gradient(90deg,transparent,#ff9966,#ff9966,#ff9966,transparent);
+	   animation:rotateBorder 5s linear infinite;
+   }
+   @keyframe rotateBorder{
+	   from{
+		   transform:rotate(0deg);
+	   }
+	   to{
+		   transform:rotate(360deg);
+	   }
+   }
+   .back-content{
+	   width:95%;
+	   height:95%;
+	   background:#151515;
+	   border-radius:6px;
+	   color:white;
+	   z-index:2;
+	   text-align:center;
+	   display:flex;
+	   flex-direction:column;
+	   gap:15px;
+	   justify-content:center;
+   }
+   .product-img{
+	   width:100%;
+	   height:100%;
+	   object-fit:cover;
+   }
+   .badge{
+	   position:absolute;
+	   top:10px;
+	   left:10px;
+	   background:#00000055;
+	   padding:3px 10px;
+	   border-radius:10px;
+	   font-size:12px;
+	   backdrop-filter:blur(2px);
+   }
+   .description{
+	   position:absolute;
+	   bottom:0;
+	   width:100%;
+	   padding:8px;
+	   background:#00000099;
+	   backdrop-filter:blur(3px);
+	   border-top:1px solid #00000055;
+	   box-shadow:0px 0px 8px 3px #00000088;
+	   font-size:13px;
+	   color:white;
+	   font-family:arial;
+   }
+   .card-footer{
+	   font-size:13px;
+	   color:#ffffffaa;
+   }
+   form{
+	display:flex;
+	justify-content:center;
+   }
+    form input{
+	border-radius:15px;
+	height:30px;
+	text-align:center;
+	width:400px;
+   }
+   form button{
+	margin-left:20px;
+	border-radius:15px;
+	text-align:center;
+	width:80px;
+	display:none;
+    cursor: pointer;
+   }
+   a{
+	font-size:24px;
+	text-decoration:none;
+	margin-left:15px;
+	font-family:arial;
+	font-weight:x-large;
+	color:white;
+   }
+   .start{
+	display:flex;
+	justify-content:space-between;
+   }
+    button{
+	width:100px;
+	border-radius:15px;
+	color:white;
+	background-color:black;
+	text-align:center;
+   }
+   .place_order{
+	position:absolute;
+	bottom:10px;
+	left:10px;
+	z-index:10;
+   }
+    </style>
+</head>
+<body>
+<div class="start">
+<a href="{% url 'home'%}">Home</a>
+<button><a href="{% url 'view_cart'%}">Cart</a></button>
+</div>
+<form method="GET" action="{%url 'smart'%}">
+    <input type="text" id="searchip" name="q" placeholder="search the fashion" value="{{request.GET.get}}">
+    <button type="submit" id="searchbtn">search</button>
+</form>
+
+
+{% if products %}
+    <div class="products">
+	{% for product in products  %}
+<div class="card" onclick="this.classList.toggle('active')">
+<div class="content">
+<div class="front">
+    <img src="{{product.image.url}}" class="product-img"  alt="{{product.name}}">
+	<span class="badge" style="text-transform:capitalize;">{{product.category}}</span>
+	<div class="description">
+    <strong style="text-transform:capitalize;">{{product.name}}</strong>
+    <p class="card-footer">{{product.price}}</p>
+	<a href="{%url 'add' product.id %}"><button>Add to cart</button></a>
+ </div>  
+
+</div>
+<div class="back">
+<div class="back-content">
+<h3 style="text-transform:capitalize;">{{product.name}}</h3>
+<strong>Description:</strong>
+<p>{{product.description}}</p>
+<p><strong>Price:</strong>{{product.price}}</p>
+
+</div>
+</div> 
+
+</div>
+</div>
+{% endfor %}
+
+
+{% else%}
+    <h1 style="display:flex;justify-content:center;color:white;">The product is not found!!!!</h1>
+{% endif %}
+    
+</div>
+ <script>
+        let ip = document.getElementById("searchip");
+        let bt = document.getElementById("searchbtn");
+
+        ip.addEventListener("input",function(){
+            if(ip.value.trim()!==""){
+                bt.style.display = "block";
+            }else{
+                bt.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>

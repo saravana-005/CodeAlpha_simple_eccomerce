@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register page</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+        body{
+            background-color: rgb(0, 0, 19);
+            display: flex;
+            justify-content: center;
+            color: aqua;
+        }
+    div{
+        position: relative;
+        top: 120px;
+        width: 300px;
+        height: 250px;
+        box-shadow: -10px -10px 3px royalblue;
+        border-radius: 50px;
+    }
+    form{
+        position: relative;
+        left: 30px;
+        top: 20px;
+    }
+    input{
+        height: 33px;
+        width: 200px;
+        margin-top: 10px;
+        border-radius: 30px;
+        text-align: center;
+        
+    }
+    button{
+        height: 30px;
+        width: 100px;
+        margin-top: 10px;
+        border-radius: 30px;
+        text-align: center;
+        position: relative;
+        left: 50px;
+    }
+    a{
+        position: relative;
+        left: 20px;
+        top: 10px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-weight: bolder;
+        color:white;
+    }
+    h1{
+        position: relative;
+        top: 10px;
+        left: 65px;
+    }
+    form a{
+        text-decoration: none;
+        color: blueviolet;
+    }
+</style>
+</head>
+<body>
+    <div>
+<h1>Sign up....</h1>
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Enter username" required><br>
+    <input type="password" name="password" placeholder="Enter password" required><br>
+    <input type="password" name="confirm" placeholder="Confirm password" required><br>
+    <button type="submit">Submit</button><br>
+    <a href="{% url 'login' %}">Already have an account!!</a>
+</form>
+</div>
+</body>
+</html>
+
+
